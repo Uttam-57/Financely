@@ -46,6 +46,7 @@ export default function SignUpPage() {
           onChange={handleChange}
           error={errors.fullName}
           placeholder="John Doe"
+          maxLength={50}
           required
         />
 
@@ -58,6 +59,7 @@ export default function SignUpPage() {
           error={errors.email}
           placeholder="johndoe@email.com"
           autoComplete="email"
+          maxLength={80}
           required
         />
 
@@ -70,6 +72,7 @@ export default function SignUpPage() {
           error={errors.password}
           placeholder="Create a password"
           autoComplete="new-password"
+          maxLength={64}
           required
         />
 
@@ -82,6 +85,7 @@ export default function SignUpPage() {
           error={errors.confirmPassword}
           placeholder="Confirm your password"
           autoComplete="new-password"
+          maxLength={64}
           required
         />
 

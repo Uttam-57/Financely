@@ -10,13 +10,15 @@ import TransactionTable from "@/components/transaction/TransactionTable";
 export default function DashboardPage() {
 
     return (
-        <section className="Hero w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 *:rounded-xl">
-            <Balance />
-            <Income />
-            <Expence />
-            <IncomeChart className="col-span-1 md:col-span-2 lg:col-span-2 min-h-[360px]" />
-            <ExpenceChart className="col-span-1 min-h-[360px]" />
-            <SearchBar className="col-span-1 md:col-span-2 lg:col-span-2" />
+        <section className="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 *:rounded-xl">
+            <div className="col-span-full grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 *:rounded-xl">
+                <Balance />
+                <Income />
+                <Expence />
+            </div>
+            <IncomeChart className="col-span-1 lg:col-span-2 min-h-[320px] sm:min-h-[360px]" />
+            <ExpenceChart className="col-span-1 min-h-[320px] sm:min-h-[360px]" />
+            <SearchBar className="col-span-1 lg:col-span-2" />
             <Filter />
             <TransactionTable className="col-span-full" />
         </section>

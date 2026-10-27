@@ -7,9 +7,9 @@ export default function Balance() {
     const balance = useSelector(selectCurrentBalance);
 
     return (
-        <Card className="p-5 flex flex-col justify-between gap-3">
-            <h2 className="text-left font-bold text-xl text-slate-800">Current Balance</h2>
-            <span className="text-2xl font-mono font-semibold text-primary">{formatCurrencyINR(balance)}</span>
+        <Card className="p-4 sm:p-5 flex flex-col justify-between gap-3 h-full">
+            <h2 className="text-left font-bold text-lg sm:text-xl text-slate-800">Current Balance</h2>
+            <span className="text-xl sm:text-2xl font-mono font-semibold text-primary truncate">{formatCurrencyINR(balance)}</span>
         </Card>
     );
 }

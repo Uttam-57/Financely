@@ -44,19 +44,19 @@ export default function IncomeChart({ className }) {
     };
 
     return (
-        <Card className={cn("flex h-full min-h-0 flex-col overflow-hidden p-4", className)}>
-            <div className="mb-4 flex flex-wrap shrink-0 items-center justify-between gap-4">
-                <h2 className="text-xl font-bold text-slate-900">Financial Statistics</h2>
-                <div className="flex items-center gap-4">
-                    <p className="text-xs font-semibold text-slate-700">
-                        <span className="inline-block h-2 w-2 mr-2 rounded-full bg-green-500" />Income
+        <Card className={cn("flex h-full min-h-0 flex-col overflow-hidden p-4 sm:p-5", className)}>
+            <div className="mb-4 flex flex-wrap shrink-0 items-center justify-between gap-3 sm:gap-4">
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900">Financial Statistics</h2>
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                    <p className="text-xs font-semibold text-slate-700 flex items-center">
+                        <span className="inline-block h-2 w-2 mr-1.5 rounded-full bg-green-500" />Income
                     </p>
-                    <p className="text-xs font-semibold text-slate-700">
-                        <span className="inline-block h-2 w-2 mr-2 rounded-full bg-red-500" />Expense
+                    <p className="text-xs font-semibold text-slate-700 flex items-center">
+                        <span className="inline-block h-2 w-2 mr-1.5 rounded-full bg-red-500" />Expense
                     </p>
                     <select
                         aria-label="Chart date range"
-                        className="rounded-lg border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600 shadow-sm outline-none"
+                        className="rounded-lg border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-600 shadow-sm outline-none bg-white cursor-pointer"
                         value={isCustom ? "custom" : dateRange}
                         onChange={handleSelectChange}
                     >

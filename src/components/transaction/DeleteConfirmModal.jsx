@@ -5,10 +5,10 @@ export default function DeleteConfirmModal({ isOpen, transaction, isDeleting, on
 
     return (
         <Modal isOpen={isOpen} onClose={() => !isDeleting && onClose()} title="Confirm Deletion">
-            <p className="text-sm text-slate-600">
-                Are you sure you want to delete <span className="font-semibold text-slate-900">"{transaction.name}"</span>? This action cannot be undone.
+            <p className="text-sm text-slate-600 wrap-break-word leading-relaxed">
+                Are you sure you want to delete <span className="font-semibold text-slate-900 break-all">"{transaction.name}"</span>? This action cannot be undone.
             </p>
-            <div className="flex justify-end gap-3 mt-2">
+            <div className="flex flex-wrap justify-end gap-2.5 mt-3">
                 <Button
                     type="button"
                     disabled={isDeleting}

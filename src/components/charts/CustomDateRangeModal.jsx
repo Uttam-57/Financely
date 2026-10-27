@@ -55,7 +55,7 @@ export default function CustomDateRangeModal({ isOpen, onClose, onApply }) {
                 <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
                     Quick Pick (Year & Month)
                 </span>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <select
                         value={selectedYear}
                         onChange={(e) => {
@@ -91,7 +91,7 @@ export default function CustomDateRangeModal({ isOpen, onClose, onApply }) {
             </div>
 
             <form onSubmit={handleApply} className="flex flex-col gap-4">
-                <div className="grid grid-cols-2 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
                         <Label htmlFor="custom-start-date" className="block mb-1.5">Start Date *</Label>
                         <Input
@@ -125,7 +125,7 @@ export default function CustomDateRangeModal({ isOpen, onClose, onApply }) {
 
                 {error && <p className="text-xs text-red-600 bg-red-50 border border-red-100 p-2.5 rounded-lg">{error}</p>}
 
-                <div className="flex justify-end gap-3 pt-3 border-t border-slate-100">
+                <div className="flex flex-wrap justify-end gap-2.5 pt-3 border-t border-slate-100">
                     <Button
                         type="button"
                         onClick={onClose}

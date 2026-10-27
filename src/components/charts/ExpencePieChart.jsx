@@ -59,8 +59,8 @@ export default function ExpenseChart() {
     }, [rawData]);
 
     return (
-        <Card className="p-4 h-full w-full flex flex-col justify-between">
-            <h3 className="mb-2 text-lg font-semibold tracking-wide text-slate-800">
+        <Card className="p-4 sm:p-5 h-full w-full flex flex-col justify-between">
+            <h3 className="mb-2 text-base sm:text-lg font-semibold tracking-wide text-slate-800">
                 Total Expense Chart
             </h3>
 

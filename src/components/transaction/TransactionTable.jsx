@@ -73,43 +73,43 @@ export default function TransactionTable({ className }) {
     };
 
     return (
-        <div className={cn("flex flex-col gap-4 p-4 h-fit bg-surface-card my-shadow", className)}>
-            <div className="flex items-center justify-between">
-                <h1 className="text-xl font-bold text-slate-900">Transaction Table</h1>
+        <div className={cn("flex flex-col gap-4 p-4 sm:p-5 h-fit bg-surface-card my-shadow rounded-xl", className)}>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900">Transaction Table</h2>
                 <div className="flex items-center gap-2">
                     <Button
                         type="button"
                         onClick={() => setIsImportOpen(true)}
-                        className="w-auto px-3.5 py-1.5 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-none border-none"
+                        className="w-auto px-3 sm:px-3.5 py-1.5 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-none border-none transition-colors"
                     >
                         Import
                     </Button>
                     <Button
                         type="button"
                         onClick={handleExport}
-                        className="w-auto px-3.5 py-1.5 text-xs font-semibold bg-primary hover:bg-blue-700 text-white shadow-none border-none"
+                        className="w-auto px-3 sm:px-3.5 py-1.5 text-xs font-semibold bg-primary hover:bg-blue-700 text-white shadow-none border-none transition-colors"
                     >
                         Export
                     </Button>
                 </div>
             </div>
 
-            <div className="overflow-x-auto">
-                <table className="w-full table-fixed text-left text-sm border-collapse">
-                    <thead className="border-b border-slate-200 text-xs font-semibold uppercase text-slate-500 bg-slate-50">
+            <div className="dynamic-table-container custom-scrollbar border border-slate-100 rounded-lg">
+                <table className="dynamic-table">
+                    <thead className="border-b border-slate-200 text-xs font-semibold uppercase text-slate-500 bg-slate-50/80">
                         <tr>
-                            <th className="w-12 text-center py-2.5 px-3">#</th>
-                            <th className="w-[30%] py-2.5 px-3">Name</th>
-                            <th onClick={() => handleSort("date")} className="w-28 text-center cursor-pointer select-none hover:bg-slate-100 py-2.5 px-3">
+                            <th className="w-12 text-center py-3 px-3">#</th>
+                            <th className="min-w-[140px] py-3 px-3">Name</th>
+                            <th onClick={() => handleSort("date")} className="w-28 text-center cursor-pointer select-none hover:bg-slate-100 py-3 px-3">
                                 Date{getSortIcon("date")}
                             </th>
-                            <th className="w-24 text-center py-2.5 px-3">Type</th>
-                            <th className="w-28 text-center py-2.5 px-3">Payment</th>
-                            <th onClick={() => handleSort("amount")} className="w-32 text-right cursor-pointer select-none hover:bg-slate-100 py-2.5 px-3">
+                            <th className="w-24 text-center py-3 px-3">Type</th>
+                            <th className="w-28 text-center py-3 px-3">Payment</th>
+                            <th onClick={() => handleSort("amount")} className="w-32 text-right cursor-pointer select-none hover:bg-slate-100 py-3 px-3">
                                 Amount{getSortIcon("amount")}
                             </th>
-                            <th className="w-[24%] py-2.5 px-3">Note</th>
-                            <th className="w-24 text-center py-2.5 px-3">Actions</th>
+                            <th className="min-w-[130px] py-3 px-3">Note</th>
+                            <th className="w-24 text-center py-3 px-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
@@ -118,7 +118,9 @@ export default function TransactionTable({ className }) {
                                 <td className="text-center whitespace-nowrap text-slate-500 py-2.5 px-3">
                                     {(currentPage - 1) * pageSize + index + 1}
                                 </td>
-                                <td className="font-medium text-slate-900 wrap-break-word py-2.5 px-3">{item.name}</td>
+                                <td className="py-2.5 px-3 font-medium text-slate-900 cell-wrap" title={item.name}>
+                                    {item.name}
+                                </td>
                                 <td className="text-slate-600 whitespace-nowrap text-center py-2.5 px-3">{formatDisplayDate(item.date)}</td>
                                 <td className="text-center whitespace-nowrap py-2.5 px-3">
                                     <span className={cn(
@@ -132,7 +134,9 @@ export default function TransactionTable({ className }) {
                                 <td className={cn("font-medium whitespace-nowrap text-right py-2.5 px-3", item.type === "income" ? "text-emerald-600" : "text-rose-600")}>
                                     {formatCurrencyINR(item.amount)}
                                 </td>
-                                <td className="text-slate-500 wrap-break-word py-2.5 px-3">{item.note}</td>
+                                <td className="py-2.5 px-3 text-slate-500 cell-wrap" title={item.note || ""}>
+                                    {item.note || "—"}
+                                </td>
                                 <td className="py-2.5 px-3">
                                     <div className="flex items-center justify-center gap-1.5">
                                         <Button
@@ -172,21 +176,21 @@ export default function TransactionTable({ className }) {
                 </div>
             )}
 
-            <div className="flex justify-center items-center gap-4 text-sm mt-3">
+            <div className="flex flex-wrap justify-center items-center gap-3 text-sm mt-3 pt-1">
                 <Button
                     type="button"
                     disabled={currentPage === 1}
                     onClick={() => setPage(currentPage - 1)}
-                    className="w-auto px-4 py-1.5 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 shadow-none border border-slate-200"
+                    className="w-auto px-4 py-1.5 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 shadow-none border border-slate-200 transition-colors"
                 >
                     Previous
                 </Button>
-                <span className="font-medium text-slate-600">Page {currentPage} of {pageCount}</span>
+                <span className="font-medium text-slate-600 text-xs sm:text-sm">Page {currentPage} of {pageCount}</span>
                 <Button
                     type="button"
                     disabled={currentPage === pageCount}
                     onClick={() => setPage(currentPage + 1)}
-                    className="w-auto px-4 py-1.5 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 shadow-none border border-slate-200"
+                    className="w-auto px-4 py-1.5 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 shadow-none border border-slate-200 transition-colors"
                 >
                     Next
                 </Button>

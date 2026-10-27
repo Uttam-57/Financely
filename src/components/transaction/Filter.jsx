@@ -10,10 +10,10 @@ export default function Filter() {
     const paymentMethod = useSelector(selectPaymentMethod);
 
     return (
-        <div className="flex justify-between items-center gap-4">
-            <Card className="p-1">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 w-full">
+            <Card className="p-1 w-full flex-1">
                 <select
-                    className="h-full w-full outline-none bg-white px-3 py-1.5 text-sm text-slate-700 cursor-pointer rounded-lg"
+                    className="h-full w-full outline-none bg-white px-3 py-2 text-sm text-slate-700 cursor-pointer rounded-lg border border-transparent focus:border-slate-200"
                     id="transaction-type"
                     aria-label="Filter by transaction type"
                     value={transactionType}
@@ -26,9 +26,9 @@ export default function Filter() {
                     ))}
                 </select>
             </Card>
-            <Card className="p-1">
+            <Card className="p-1 w-full flex-1">
                 <select
-                    className="h-full w-full outline-none bg-white px-3 py-1.5 text-sm text-slate-700 cursor-pointer rounded-lg"
+                    className="h-full w-full outline-none bg-white px-3 py-2 text-sm text-slate-700 cursor-pointer rounded-lg border border-transparent focus:border-slate-200"
                     id="transaction-payment"
                     aria-label="Filter by payment method"
                     value={paymentMethod}

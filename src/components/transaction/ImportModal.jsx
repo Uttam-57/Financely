@@ -66,7 +66,7 @@ export default function ImportModal({ isOpen, onClose, onSuccess, userId }) {
                 <Label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Import Strategy
                 </Label>
-                <div className="grid grid-cols-2 gap-2 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                     {STRATEGIES.map((s) => (
                         <label
                             key={s.id}
@@ -107,7 +107,7 @@ export default function ImportModal({ isOpen, onClose, onSuccess, userId }) {
                     <Label htmlFor="csv-file-input" className="cursor-pointer text-xs font-semibold text-primary hover:underline">
                         {fileName ? "Change CSV File" : "Choose CSV file to upload"}
                     </Label>
-                    {fileName && <span className="text-xs text-slate-600 mt-1 font-medium truncate max-w-xs">Selected: {fileName}</span>}
+                    {fileName && <span className="text-xs text-slate-600 mt-1 font-medium truncate max-w-full sm:max-w-md">Selected: {fileName}</span>}
                     {parsedData.length > 0 && (
                         <span className="text-xs font-semibold text-emerald-600 mt-1">
                             ✓ Found {parsedData.length} valid transactions
@@ -118,7 +118,7 @@ export default function ImportModal({ isOpen, onClose, onSuccess, userId }) {
 
             {error && <p className="text-xs text-rose-600 bg-rose-50 border border-rose-100 p-2.5 rounded-lg">{error}</p>}
 
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+            <div className="flex flex-wrap justify-end gap-2 pt-2 border-t border-slate-100">
                 <Button
                     type="button"
                     disabled={isSubmitting}

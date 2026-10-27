@@ -9,12 +9,13 @@ export default function SearchBar({ className = "" }) {
     const search = useSelector(selectSearchQuery);
 
     return (
-        <Card className={cn("", className)}>
+        <Card className={cn("p-1 sm:p-1.5 flex items-center", className)}>
             <Input
-                className="border-none px-4"
+                className="border-none px-3 sm:px-4 py-2 text-sm w-full"
                 id="search-bar"
                 aria-label="Search by name"
                 type="text"
+                maxLength={60}
                 placeholder="Search By Name"
                 value={search}
                 onChange={(event) => dispatch(setQuery({ search: event.target.value }))}

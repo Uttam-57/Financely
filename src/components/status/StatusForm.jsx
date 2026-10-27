@@ -91,6 +91,7 @@ function StatusFormModal({ formState, user, onSaved, onClose }) {
                     placeholder="Transaction Name"
                     value={form.name}
                     onChange={handleChange}
+                    maxLength={60}
                     inputClass="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-800"
                     required
                 />
@@ -99,6 +100,7 @@ function StatusFormModal({ formState, user, onSaved, onClose }) {
                     label="Amount *"
                     type="number"
                     min="0.01"
+                    max="999999999"
                     step="0.01"
                     placeholder="Amount (positive value only)"
                     value={form.amount}
@@ -156,10 +158,11 @@ function StatusFormModal({ formState, user, onSaved, onClose }) {
                     placeholder="Optional note"
                     value={form.note}
                     onChange={handleChange}
+                    maxLength={120}
                     inputClass="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-800"
                 />
                 {error && <p className="text-sm text-red-600">{error}</p>}
-                <div className="flex justify-end gap-3 pt-2">
+                <div className="flex flex-wrap justify-end gap-2.5 pt-2">
                     <Button
                         type="button"
                         disabled={isSubmitting}

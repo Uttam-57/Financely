@@ -44,6 +44,7 @@ export default function SignInPage() {
           error={errors.email}
           placeholder="johndoe@email.com"
           autoComplete="email"
+          maxLength={80}
           required
         />
 
@@ -56,6 +57,7 @@ export default function SignInPage() {
           error={errors.password}
           placeholder="Your password"
           autoComplete="current-password"
+          maxLength={64}
           required
         />
         <span className="text-primary text-sm"><Link to={Routes.FORGOT_PASS}>Forgot Password?</Link></span>
