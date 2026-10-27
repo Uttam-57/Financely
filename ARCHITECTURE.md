@@ -112,9 +112,9 @@ sequenceDiagram
 ```
 
 ### Source Code Mapping
-1. **[index.html](root/index.html):** Declares viewport metadata, favicon, and the root `<div id="root"></div>`.
-2. **[main.jsx](root/src/main.jsx):** Uses React 19's `createRoot(document.getElementById('root'))` to mount `App`.
-3. **[App.jsx](root/src/App.jsx):** Wraps the app in `<Provider store={store}>`, attaches the global `<Toaster />`, and encloses `<AppRouter />` within `<AuthInit>`.
+1. **[index.html](index.html):** Declares viewport metadata, favicon, and the root `<div id="root"></div>`.
+2. **[main.jsx](src/main.jsx):** Uses React 19's `createRoot(document.getElementById('root'))` to mount `App`.
+3. **[App.jsx](src/App.jsx):** Wraps the app in `<Provider store={store}>`, attaches the global `<Toaster />`, and encloses `<AppRouter />` within `<AuthInit>`.
 
 ---
 
@@ -123,7 +123,7 @@ sequenceDiagram
 Authentication is managed via Firebase Auth, fortified with custom session longevity enforcement.
 
 ### 3.1 Firebase Configuration & Initialization
-* File: **[src/hooks/firebase.js](root/src/hooks/firebase.js)**
+* File: **[src/hooks/firebase.js](src/hooks/firebase.js)**
 * Configured using Vite environment variables (`import.meta.env.VITE_FIREBASE_*`).
 * Exports singletons:
   * `auth`: Initialized with `getAuth(app)`.
@@ -166,7 +166,7 @@ export function watchAuthState(onUserActive, onUserInactive) {
 ```
 
 ### 3.3 Redux State Sanitization (`authSlice.js`)
-* File: **[src/features/auth/authSlice.js](root/src/features/auth/authSlice.js)**
+* File: **[src/features/auth/authSlice.js](src/features/auth/authSlice.js)**
 * Firebase User instances contain recursive methods and internal tokens that are **non-serializable**. Passing raw Firebase objects to Redux triggers serializability warnings.
 * `authSlice.js` utilizes RTK's `prepare` action callback to sanitize the user into plain serializable fields:
   ```javascript
@@ -183,20 +183,20 @@ export function watchAuthState(onUserActive, onUserInactive) {
   ```
 
 ### 3.4 Custom Authentication Hooks
-* **[useLogin.js](root/src/hooks/useLogin.js):**
+* **[useLogin.js](src/hooks/useLogin.js):**
   * `submit(formData)`: Pure email format validation -> `await loginWithEmail()` -> redirects to `/dashbord`.
   * `signInWithGoogle()`: Invokes `await loginWithGoogle()` via popup. Inspects `getAdditionalUserInfo()`. If the Google account is new and was not registered, deletes the account and instructs the user to register first.
-* **[useRegister.js](root/src/hooks/useRegister.js):**
+* **[useRegister.js](src/hooks/useRegister.js):**
   * Validates full name regex (`NAME_REGEX`), email format, and password complexity (8+ characters, uppercase, lowercase, numbers, special characters).
   * Executes `await registerWithEmail()` -> calls `await updateProfile(user, { displayName })` -> initializes user document in Firestore.
-* **[useForgotPass.js](root/src/hooks/useForgotPass.js):**
+* **[useForgotPass.js](src/hooks/useForgotPass.js):**
   * Validates email format -> invokes `await sendResetEmail()` -> sets `isSent: true`.
 
 ---
 
 ## 4. Routing, Route Guards & Code Splitting (Lazy Loading)
 
-Routing is orchestrated with **React Router v7** using `createBrowserRouter` in [Router.jsx](root/src/routes/Router.jsx).
+Routing is orchestrated with **React Router v7** using `createBrowserRouter` in [Router.jsx](src/routes/Router.jsx).
 
 ```mermaid
 flowchart TD
@@ -237,17 +237,17 @@ const SignInPage = lazy(() => import('@/pages/Auth/SignInPage'));
 const ForgotPasswordPage = lazy(() => import('@/pages/Auth/ForgotPasswordPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 ```
-* **Suspense Boundaries:** Every `<Outlet />` in [AppLayout.jsx](root/src/shared/layout/AppLayout.jsx) and [AuthLayout.jsx](root/src/shared/layout/AuthLayout.jsx) is wrapped in `<Suspense fallback={<LoadingIndicator />}>`. This eliminates white flashes and prevents React suspension runtime exceptions.
+* **Suspense Boundaries:** Every `<Outlet />` in [AppLayout.jsx](src/shared/layout/AppLayout.jsx) and [AuthLayout.jsx](src/shared/layout/AuthLayout.jsx) is wrapped in `<Suspense fallback={<LoadingIndicator />}>`. This eliminates white flashes and prevents React suspension runtime exceptions.
 
 ### 4.3 Route Error Handling (`ErrorBoundry.jsx`)
-* File: **[src/shared/utils/ErrorBoundry.jsx](root/src/shared/utils/ErrorBoundry.jsx)**
+* File: **[src/shared/utils/ErrorBoundry.jsx](src/shared/utils/ErrorBoundry.jsx)**
 * Registered as `errorElement` on route roots. Catches 404s, 500s, loader failures, and network disconnects using `useRouteError()` and `isRouteErrorResponse(err)`. Provides a "Reload Page" button and a "Go to Home" link.
 
 ---
 
 ## 5. Global State Management (Redux Store Architecture)
 
-The Redux store is configured in [store.js](root/src/shared/utils/store.js) using Redux Toolkit.
+The Redux store is configured in [store.js](src/shared/utils/store.js) using Redux Toolkit.
 
 ```text
 Redux Root Store
@@ -278,7 +278,7 @@ Redux Root Store
 ```
 
 ### 5.1 Memoized Selectors (`transactionSelector.js`)
-To avoid unnecessary re-renders in Recharts and UI components, [transactionSelector.js](root/src/features/transaction/transactionSelector.js) uses RTK's `createSelector`:
+To avoid unnecessary re-renders in Recharts and UI components, [transactionSelector.js](src/features/transaction/transactionSelector.js) uses RTK's `createSelector`:
 * `selectCurrentBalance`: Memoized scalar balance.
 * `selectTotalIncome`: Memoized income sum.
 * `selectTotalExpense`: Memoized expense sum.
@@ -289,7 +289,7 @@ To avoid unnecessary re-renders in Recharts and UI components, [transactionSelec
 
 ## 6. Transaction Model & Real-Time Financial Aggregation
 
-File: **[src/hooks/transactionModel.js](root/src/hooks/transactionModel.js)**  
+File: **[src/hooks/transactionModel.js](src/hooks/transactionModel.js)**  
 Acts as the **single source of truth** for data contracts, validation, date normalization, and financial math.
 
 ### 6.1 Validation Engine (`validateTransaction`)
@@ -329,7 +329,7 @@ export function computeSummaries(transactions = [], paymentMethod = "all") {
 
 ## 7. Cloud Firestore Services & Chunked Batch Operations
 
-File: **[src/hooks/transactionService.js](root/src/hooks/transactionService.js)**  
+File: **[src/hooks/transactionService.js](src/hooks/transactionService.js)**  
 Encapsulates all communication with Cloud Firestore.
 
 ### 7.1 Firestore Data Hierarchy
@@ -399,8 +399,8 @@ sequenceDiagram
 
 ## 8. Data Grid Engine: Search, Filter, Sort & Pagination
 
-File: **[src/hooks/useTable.js](root/src/hooks/useTable.js)**  
-Controls the client-side data pipeline for [TransactionTable.jsx](root/src/components/transaction/TransactionTable.jsx).
+File: **[src/hooks/useTable.js](src/hooks/useTable.js)**  
+Controls the client-side data pipeline for [TransactionTable.jsx](src/components/transaction/TransactionTable.jsx).
 
 ```mermaid
 flowchart LR
@@ -429,7 +429,7 @@ Executed inside `useMemo`:
 
 ## 9. Smart CSV Engine: Ingestion, Normalization & Export
 
-File: **[src/shared/utils/csv.js](root/src/shared/utils/csv.js)**  
+File: **[src/shared/utils/csv.js](src/shared/utils/csv.js)**  
 
 ### 9.1 Export Pipeline (`exportToCSV`)
 1. Maps filtered transactions into clean export objects with headers: `Name`, `Amount`, `Date`, `Type`, `Payment Method`, `Category`, `Note`.
@@ -468,7 +468,7 @@ shared/ui/
 ```
 
 ### 10.1 Tailwind CSS v4 Dynamic Theme System
-File: **[src/index.css](root/src/index.css)**  
+File: **[src/index.css](src/index.css)**  
 Tailwind v4's `@theme inline` registers dynamic CSS custom properties:
 ```css
 @theme inline {
