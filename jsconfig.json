@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        // allow to write JSX without importing React each file
+        "jsx": "react-jsx",
+        "checkJs": false,
+        "target": "ES2022",
+        "module": "ESNext",
+        // resolve import for .css, svg, 
+        "moduleResolution": "bundler",
+        // inject vite specific type defination
+        "types": [
+            "vite/client"
+        ],
+        // its for suported in vs code to not give error on @
+        // and config @ point to ./src
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+        },
+    },
+    // strickly apply rule only inside src folder
+    // prevent giving error on dist file where code or optimised form
+    "include": [
+        "src"
+    ]
+}

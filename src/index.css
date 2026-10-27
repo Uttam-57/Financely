@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap");
+@import "tailwindcss";
+
+/* 1. Register Tailwind classes linked to dynamic variables */
+@theme inline {
+  --font-sans: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif;
+
+  --color-surface-base: var(--surface-base);
+  --color-surface-raise: var(--surface-raise);
+  --color-surface-card: var(--surface-card);
+
+  --color-text-1: var(--text-1);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+
+  --color-primary: var(--primary);
+
+  --color-border: var(--border);
+}
+
+/* 2. Light mode default values */
+:root {
+  --surface-base: #edeff0;
+  --surface-card: #ffffff;
+  --surface-raise: #1256df;
+
+  --primary: #2970ff;
+
+  --text-1: #000000;
+  --text-2: #ffffff;
+  --text-3: #232bc7;
+
+  --border: #1228b9;
+}
+
+/* 3. Dark mode values (same variable names, different hex) */
+.dark {
+  --surface-base: #090d16;
+  --surface-card: #131c2e;
+  --surface-raise: #1e293b;
+
+  --primary: #3b82f6;
+
+  --text-1: #f8fafc;
+  --text-2: #ffffff;
+  --text-3: #93c5fd;
+
+  --border: #1e293b;
+}
+
+.my-shadow {
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
